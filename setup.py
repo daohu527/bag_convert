@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="bag_convert",
-    version="0.0.1",
+    version="0.0.2",
     author="daohu527",
     author_email="daohu527@gmail.com",
     description="Ros bag to Apollo record or reverse conversion",
@@ -28,6 +28,7 @@ setuptools.setup(
         'py3rosmsgs',
         'rospkg',
         'pycryptodomex',
+        'tqdm',
     ],
     entry_points={
         'console_scripts': [
