@@ -19,13 +19,13 @@ import logging
 import rosbag
 import rospy
 from cyber_record.record import Record
+from tqdm import tqdm
 
-
-from compressed_image import to_compressed_image
-from image import to_image
-from imu import to_imu
-from pointcloud2 import to_pointcloud
-from pose import to_pose
+from bag_convert.record2bag.compressed_image import to_compressed_image
+from bag_convert.record2bag.image import to_image
+from bag_convert.record2bag.imu import to_imu
+from bag_convert.record2bag.pointcloud2 import to_pointcloud
+from bag_convert.record2bag.pose import to_pose
 
 
 def convert_msg(cyber_msg):
@@ -46,6 +46,7 @@ def convert_msg(cyber_msg):
 
 def convert(record_file, bag_file="result.bag"):
     record = Record(record_file)
+    pbar = tqdm(desc="bag to record progress")
     with rosbag.Bag(bag_file, 'w') as bag:
         for topic, msg, t in record.read_messages():
             logging.debug("{},{},{}".format(topic, type(msg), t))
@@ -53,7 +54,9 @@ def convert(record_file, bag_file="result.bag"):
             t = rospy.Time.from_sec(t / (10**9))
             if msg:
                 bag.write(topic, msg, t)
+            pbar.update()
     record.close()
+    pbar.close()
 
 
 if __name__ == "__main__":

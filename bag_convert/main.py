@@ -34,25 +34,28 @@ def main(args=sys.argv):
         help="conversion method")
     parser.add_argument(
         "-b", "--bag_file", action="store", type=str, required=False,
-        help="Ros bag file path")
+        default="result.bag", help="Ros bag file path")
     parser.add_argument(
         "-r", "--record_file", action="store", type=str, required=False,
-        help="Cyber record file path")
+        default="result.record", help="Cyber record file path")
 
     args = parser.parse_args(args[1:])
 
     # 1. Check if parameters are valid
     bag_file = Path(args.bag_file)
     record_file = Path(args.record_file)
-    if not bag_file.is_file():
-        logging.error("File not exist! '{}'".format(args.bag_file))
-    if not record_file.is_file():
-        logging.error("File not exist! '{}'".format(args.record_file))
 
     # 2. conversion package
     if args.mode == 'b2r':
+        if not bag_file or not bag_file.is_file():
+            logging.error("Bag file not exist! '{}'".format(args.bag_file))
+            return
         bag2record.convert(bag_file, record_file)
     elif args.mode == 'r2b':
+        if not record_file or not record_file.is_file():
+            logging.error(
+                "Record file not exist! '{}'".format(args.record_file))
+            return
         record2bag.convert(record_file, bag_file)
     else:
         logging.error("Mode not exist! '{}'".format(args.mode))

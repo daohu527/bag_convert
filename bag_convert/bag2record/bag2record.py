@@ -18,7 +18,7 @@ import logging
 
 import rosbag
 from cyber_record.record import Record
-
+from tqdm import tqdm
 
 from bag_convert.bag2record.imu import to_imu
 from bag_convert.bag2record.localization import to_localization
@@ -44,6 +44,7 @@ def convert_msg(ros_msg):
 
 def convert(bag_file, record_file="result.record"):
     bag = rosbag.Bag(bag_file)
+    pbar = tqdm(desc="bag to record progress")
     with Record(record_file, mode='w') as record:
         for topic, msg, t in bag.read_messages():
             logging.debug("{},{},{}".format(topic, type(msg), t))
@@ -51,7 +52,9 @@ def convert(bag_file, record_file="result.record"):
             t = t.secs * (10**9) + t.nsecs
             if msg:
                 record.write(topic, msg, t)
+            pbar.update()
     bag.close()
+    pbar.close()
 
 
 if __name__ == "__main__":
