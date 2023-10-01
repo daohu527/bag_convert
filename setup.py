@@ -24,9 +24,10 @@ setuptools.setup(
     packages=setuptools.find_packages(where="."),
     install_requires=[
         'cyber_record',
-        # 'record_msg<=0.1.1',
+        'record_msg<=0.1.1',
         'py3rosmsgs',
         'rospkg',
+        'pycryptodomex',
     ],
     entry_points={
         'console_scripts': [

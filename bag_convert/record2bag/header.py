@@ -19,13 +19,14 @@ from std_msgs.msg import Header
 
 
 def to_header(ros_header, cyber_header):
-  ros_header.seq = cyber_header.sequence_num
-  ros_header.stamp = rospy.Time.from_sec(cyber_header.timestamp_sec)
-  ros_header.frame_id = cyber_header.frame_id
+    ros_header.seq = cyber_header.sequence_num
+    ros_header.stamp = rospy.Time.from_sec(cyber_header.timestamp_sec)
+    ros_header.frame_id = cyber_header.frame_id
+
 
 def add_header(func):
-  def inner(cyber_msg):
-    ros_msg = func(cyber_msg)
-    to_header(ros_msg.header, cyber_msg.header)
-    return ros_msg
-  return inner
+    def inner(cyber_msg):
+        ros_msg = func(cyber_msg)
+        to_header(ros_msg.header, cyber_msg.header)
+        return ros_msg
+    return inner

@@ -21,15 +21,15 @@ from header import add_header
 
 
 def to_pose(cyber_localization):
-  ros_pose = Pose()
+    ros_pose = Pose()
 
-  pose = cyber_localization.pose
-  ros_pose.position.x = pose.position.x
-  ros_pose.position.y = pose.position.y
-  ros_pose.position.z = pose.position.z
+    pose = cyber_localization.pose
+    ros_pose.position.x = pose.position.x
+    ros_pose.position.y = pose.position.y
+    ros_pose.position.z = pose.position.z
 
-  ros_pose.orientation.x = pose.orientation.qx
-  ros_pose.orientation.y = pose.orientation.qy
-  ros_pose.orientation.z = pose.orientation.qz
-  ros_pose.orientation.w = pose.orientation.qw
-  return ros_pose
+    ros_pose.orientation.x = pose.orientation.qx
+    ros_pose.orientation.y = pose.orientation.qy
+    ros_pose.orientation.z = pose.orientation.qz
+    ros_pose.orientation.w = pose.orientation.qw
+    return ros_pose

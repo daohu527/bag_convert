@@ -18,18 +18,20 @@ from modules.common.proto.header_pb2 import Header
 
 
 def to_timestamp(ros_stamp):
-  return ros_stamp.secs + (ros_stamp.nsecs / 1e9)
+    return ros_stamp.secs + (ros_stamp.nsecs / 1e9)
+
 
 def to_header(ros_header):
-  cyber_header = Header()
-  cyber_header.sequence_num = ros_header.seq
-  cyber_header.timestamp_sec = to_timestamp(ros_header.stamp)
-  cyber_header.frame_id = ros_header.frame_id
-  return cyber_header
+    cyber_header = Header()
+    cyber_header.sequence_num = ros_header.seq
+    cyber_header.timestamp_sec = to_timestamp(ros_header.stamp)
+    cyber_header.frame_id = ros_header.frame_id
+    return cyber_header
+
 
 def add_header(func):
-  def inner(ros_msg):
-    cyber_msg = func(ros_msg)
-    cyber_msg.header.CopyFrom(to_header(ros_msg.header))
-    return cyber_msg
-  return inner
+    def inner(ros_msg):
+        cyber_msg = func(ros_msg)
+        cyber_msg.header.CopyFrom(to_header(ros_msg.header))
+        return cyber_msg
+    return inner

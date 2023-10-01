@@ -21,7 +21,7 @@ from header import add_header
 
 @add_header
 def to_compressed_image(cyber_compressed_image):
-  ros_compressed_image = CompressedImage()
-  ros_compressed_image.format = cyber_compressed_image.format
-  ros_compressed_image.data = cyber_compressed_image.data
-  return ros_compressed_image
+    ros_compressed_image = CompressedImage()
+    ros_compressed_image.format = cyber_compressed_image.format
+    ros_compressed_image.data = cyber_compressed_image.data
+    return ros_compressed_image

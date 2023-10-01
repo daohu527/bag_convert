@@ -20,8 +20,8 @@ import logging
 import sys
 from pathlib import Path
 
-import bag2record
-import record2bag
+import bag_convert.bag2record.bag2record as bag2record
+import bag_convert.record2bag.record2bag as record2bag
 
 
 def main(args=sys.argv):
@@ -37,7 +37,7 @@ def main(args=sys.argv):
         help="Ros bag file path")
     parser.add_argument(
         "-r", "--record_file", action="store", type=str, required=False,
-        help="Cyber record file path")    
+        help="Cyber record file path")
 
     args = parser.parse_args(args[1:])
 

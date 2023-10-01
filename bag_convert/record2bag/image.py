@@ -21,12 +21,12 @@ from header import add_header
 
 @add_header
 def to_image(cyber_image):
-  ros_image = Image()
+    ros_image = Image()
 
-  ros_image.height = cyber_image.height
-  ros_image.width = cyber_image.width
-  ros_image.encoding = cyber_image.encoding
-  ros_image.step = cyber_image.step
+    ros_image.height = cyber_image.height
+    ros_image.width = cyber_image.width
+    ros_image.encoding = cyber_image.encoding
+    ros_image.step = cyber_image.step
 
-  ros_image.data = cyber_image.data
-  return ros_image
+    ros_image.data = cyber_image.data
+    return ros_image

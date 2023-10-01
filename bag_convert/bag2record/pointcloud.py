@@ -17,26 +17,26 @@
 from modules.drivers.proto.pointcloud_pb2 import PointCloud
 from sensor_msgs import point_cloud2
 
-from header import add_header
+from bag_convert.bag2record.header import add_header
 
 
 @add_header
 def to_pointcloud(ros_pointcloud2):
-  cyber_pointcloud = PointCloud()
+    cyber_pointcloud = PointCloud()
 
-  cyber_pointcloud.height = ros_pointcloud2.height
-  cyber_pointcloud.width = ros_pointcloud2.width
-  
-  # todo(zero): Need to parse "ros_pointcloud2.fields" for assignment
-  for p in point_cloud2.read_points(ros_pointcloud2):
-    point_xyzit = cyber_pointcloud.point.add()
-    point_xyzit.x = p[0]
-    point_xyzit.y = p[1]
-    point_xyzit.z = p[2]
-    if len(p) > 3:
-      point_xyzit.intensity = p[3]
-    if len(p) > 4:
-      point_xyzit.timestamp = p[4]
+    cyber_pointcloud.height = ros_pointcloud2.height
+    cyber_pointcloud.width = ros_pointcloud2.width
 
-  cyber_pointcloud.is_dense = ros_pointcloud2.is_dense
-  return cyber_pointcloud
+    # todo(zero): Need to parse "ros_pointcloud2.fields" for assignment
+    for p in point_cloud2.read_points(ros_pointcloud2):
+        point_xyzit = cyber_pointcloud.point.add()
+        point_xyzit.x = p[0]
+        point_xyzit.y = p[1]
+        point_xyzit.z = p[2]
+        if len(p) > 3:
+            point_xyzit.intensity = p[3]
+        if len(p) > 4:
+            point_xyzit.timestamp = p[4]
+
+    cyber_pointcloud.is_dense = ros_pointcloud2.is_dense
+    return cyber_pointcloud

@@ -16,20 +16,21 @@
 
 from modules.localization.proto.localization_pb2 import LocalizationEstimate
 
-from header import add_header
+from bag_convert.bag2record.header import add_header
+
 
 @add_header
 def to_localization(ros_pose):
-  cyber_localization = LocalizationEstimate()
-  # cyber_localization.header.CopyFrom(to_header(ros_pose.header))
+    cyber_localization = LocalizationEstimate()
+    # cyber_localization.header.CopyFrom(to_header(ros_pose.header))
 
-  pose = cyber_localization.pose
-  pose.position.x = ros_pose.position.x
-  pose.position.y = ros_pose.position.y
-  pose.position.z = ros_pose.position.z
+    pose = cyber_localization.pose
+    pose.position.x = ros_pose.position.x
+    pose.position.y = ros_pose.position.y
+    pose.position.z = ros_pose.position.z
 
-  pose.orientation.qx = ros_pose.orientation.x
-  pose.orientation.qy = ros_pose.orientation.y
-  pose.orientation.qz = ros_pose.orientation.z
-  pose.orientation.qw = ros_pose.orientation.w
-  return cyber_localization
+    pose.orientation.qx = ros_pose.orientation.x
+    pose.orientation.qy = ros_pose.orientation.y
+    pose.orientation.qz = ros_pose.orientation.z
+    pose.orientation.qw = ros_pose.orientation.w
+    return cyber_localization

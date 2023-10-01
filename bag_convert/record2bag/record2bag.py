@@ -29,30 +29,32 @@ from pose import to_pose
 
 
 def convert_msg(cyber_msg):
-  msg_type = cyber_msg.__class__.__name__
-  if "CorrectedImu" in msg_type:
-    return to_imu(cyber_msg)
-  elif "LocalizationEstimate" in msg_type:
-    return to_pose(cyber_msg)  
-  elif "PointCloud" in msg_type:
-    return to_pointcloud(cyber_msg)
-  elif "Image" in msg_type:
-    return to_image(cyber_msg)
-  elif "CompressedImage" in msg_type:
-    return to_compressed_image(cyber_msg)
-  else:
-    return None
+    msg_type = cyber_msg.__class__.__name__
+    if "CorrectedImu" in msg_type:
+        return to_imu(cyber_msg)
+    elif "LocalizationEstimate" in msg_type:
+        return to_pose(cyber_msg)
+    elif "PointCloud" in msg_type:
+        return to_pointcloud(cyber_msg)
+    elif "Image" in msg_type:
+        return to_image(cyber_msg)
+    elif "CompressedImage" in msg_type:
+        return to_compressed_image(cyber_msg)
+    else:
+        return None
 
-def convert(record_file, bag_file = "result.bag"):
-  record = Record(record_file)
-  with rosbag.Bag(bag_file, 'w') as bag:
-    for topic, msg, t in record.read_messages():
-      logging.debug("{},{},{}".format(topic, type(msg), t))
-      msg = convert_msg(msg)
-      t = rospy.Time.from_sec(t / (10**9))
-      if msg:
-        bag.write(topic, msg, t)
-  record.close()
+
+def convert(record_file, bag_file="result.bag"):
+    record = Record(record_file)
+    with rosbag.Bag(bag_file, 'w') as bag:
+        for topic, msg, t in record.read_messages():
+            logging.debug("{},{},{}".format(topic, type(msg), t))
+            msg = convert_msg(msg)
+            t = rospy.Time.from_sec(t / (10**9))
+            if msg:
+                bag.write(topic, msg, t)
+    record.close()
+
 
 if __name__ == "__main__":
-  convert("../../data/demo_sensor_data_for_vision.record")
+    convert("../../data/demo_sensor_data_for_vision.record")

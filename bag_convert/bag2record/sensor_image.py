@@ -16,27 +16,27 @@
 
 from modules.drivers.proto.sensor_image_pb2 import Image, CompressedImage
 
-from header import add_header
+from bag_convert.bag2record.header import add_header
 
 
 @add_header
 def to_image(ros_image):
-  cyber_image = Image()
-  # cyber_image.header = to_header(ros_image.header)
+    cyber_image = Image()
+    # cyber_image.header = to_header(ros_image.header)
 
-  cyber_image.height = ros_image.height
-  cyber_image.width = ros_image.width
-  cyber_image.encoding = ros_image.encoding
-  cyber_image.step = ros_image.step
+    cyber_image.height = ros_image.height
+    cyber_image.width = ros_image.width
+    cyber_image.encoding = ros_image.encoding
+    cyber_image.step = ros_image.step
 
-  cyber_image.data = ros_image.data
-  return cyber_image
+    cyber_image.data = ros_image.data
+    return cyber_image
 
 
 @add_header
 def to_compressed_image(ros_compressed_image):
-  cyber_compressed_image = CompressedImage()
-  # cyber_compressed_image.header = to_header(ros_compressed_image.header)
-  cyber_compressed_image.format = ros_compressed_image.format
-  cyber_compressed_image.data = ros_compressed_image.data
-  return cyber_compressed_image
+    cyber_compressed_image = CompressedImage()
+    # cyber_compressed_image.header = to_header(ros_compressed_image.header)
+    cyber_compressed_image.format = ros_compressed_image.format
+    cyber_compressed_image.data = ros_compressed_image.data
+    return cyber_compressed_image
