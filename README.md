@@ -22,3 +22,7 @@ bag_convert -m=b2r -b=data/input.bag -r=data/output.record
 ```shell
 bag_convert -m=r2b -r=data/input.record -b=data/output.bag
 ```
+
+## rosmsg
+There is already 1:1 ros message format for protobuf [pb_rosmsg](https://github.com/daohu527/pb_rosmsg)
+
